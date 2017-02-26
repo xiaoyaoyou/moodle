@@ -5827,6 +5827,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $mail->addReplyTo($values[0], $values[1]);
     }
 
+    $mail->FromName         = "xiaoyaoyouyukim@gmail.com";
     if ($mail->send()) {
         set_send_count($user);
         if (!empty($mail->SMTPDebug)) {
