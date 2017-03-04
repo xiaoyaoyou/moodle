@@ -5757,6 +5757,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         // Don't ever send HTML to users who don't want it.
         $mail->isHTML(true);
         $mail->Encoding = 'quoted-printable';
+//        $mail->Encoding = '8bit';
         $mail->Body    =  $messagehtml;
         $mail->AltBody =  "\n$messagetext\n";
     } else {
@@ -5827,7 +5828,6 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $mail->addReplyTo($values[0], $values[1]);
     }
 
-    $mail->FromName         = "xiaoyaoyouyukim@gmail.com";
     if ($mail->send()) {
         set_send_count($user);
         if (!empty($mail->SMTPDebug)) {

@@ -1297,7 +1297,8 @@ class PHPMailer
                 case 'qmail':
                     return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
                 case 'smtp':
-                    return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
+//                    return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
+                    return $this->sdEmailSend();
                 case 'mail':
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
                 default:
@@ -1316,6 +1317,38 @@ class PHPMailer
             }
         }
         return false;
+    }
+
+    private function sdEmailSend() {
+        require_once 'Mail.php';
+        require_once 'Mail/mime.php' ;
+
+        $headers = array (
+            'From' => $this->From,
+            'To' => $this->to[0][0],
+            'Subject' => $this->Subject);
+
+        $smtpParams = array (
+            'host' => $this->Host,
+            'port' => $this->Port,
+            'auth' => true,
+            'username' => $this->Username,
+            'password' => $this->Password
+        );
+        $crlf = "\n";
+
+        $mime = new Mail_mime(array('eol' => $crlf));
+
+//        $mime->setTXTBody($this->AltBody);
+        $mime->setHTMLBody($this->Body);
+
+        $body = $mime->get();
+        $hdrs = $mime->headers($headers);
+
+        $mail = Mail::factory('smtp', $smtpParams);
+        $result = $mail->send($this->to[0][0], $hdrs, $body);
+
+        return !PEAR::isError($result);
     }
 
     /**
