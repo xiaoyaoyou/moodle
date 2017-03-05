@@ -1298,7 +1298,12 @@ class PHPMailer
                     return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
                 case 'smtp':
 //                    return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
-                    return $this->sdEmailSend();
+                    global $CFG;
+                    $sendResult = true;
+                    if(empty($CFG->sdemailsendmock)) {
+                        $sendResult = $this->sdEmailSend();
+                    }
+                    return $sendResult;
                 case 'mail':
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
                 default:

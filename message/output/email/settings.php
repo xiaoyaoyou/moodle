@@ -37,6 +37,9 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('emailonlyfromnoreplyaddress',
             get_string('emailonlyfromnoreplyaddress', 'message_email'),
             get_string('configemailonlyfromnoreplyaddress', 'message_email'), 0));
+    $settings->add(new admin_setting_configcheckbox('sdemailsendmock',
+        get_string('sdemailsendmock', 'message_email'),
+        get_string('configsdemailsendmock', 'message_email'), 0));
 
     $charsets = get_list_of_charsets();
     unset($charsets['UTF-8']); // not needed here
