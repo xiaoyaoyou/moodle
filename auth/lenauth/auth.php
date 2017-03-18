@@ -1021,6 +1021,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $queryparams['sig'] = md5( $sig . $secret_key );
 
                         $curl_response      = $curl->post( $request_api_url, $this->_generate_query_data( $queryparams ) );
+                        throw new moodle_exception( '$curl_response is ', 'auth_lenauth' );
                         $curl_final_data = json_decode( $curl_response, true );
 
                         $social_uid      = $curl_final_data[0]['uid'];
