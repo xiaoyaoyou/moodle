@@ -1262,7 +1262,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
                     unset( $_COOKIE['twitter'] );
                     setcookie($authprovider . '[access_token]', null, 1, '/');
                     setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
-                    setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
+                    setcookie($authprovider . '[oauth_verifier]', null, 1, '/');
                     unset( $_COOKIE['auth_lenauth_authprovider'] );
                     setcookie('auth_lenauth_authprovider', null, 1, '/');
 //                    unset($_COOKIE[ $authprovider . '[access_token]']);
