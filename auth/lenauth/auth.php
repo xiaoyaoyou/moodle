@@ -922,16 +922,24 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $curl_header = $this->_lenauth_set_twitter_header( $queryparams, $access_token, $_COOKIE[$authprovider]['oauth_token_secret'] );
                         $curl->setHeader( $curl_header );
 
-                        ob_start();
-                        var_dump($curl);
-                        var_dump($this->_settings[$authprovider]);
-                        $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter oauth err is '.$result, 'auth_lenauth' );
+//                        ob_start();
+//                        var_dump($curl);
+//                        var_dump($this->_settings[$authprovider]);
+//                        $result = ob_get_clean();
+//                        throw new moodle_exception( 'twitter oauth err is '.$result, 'auth_lenauth' );
 
-                        $curl_final_data_pre = $curl->post(
-                            $this->_settings[$authprovider]['token_url'],
-                            $queryparams
-                        );
+//                        $curl_final_data_pre = $curl->post(
+//                            $this->_settings[$authprovider]['token_url'],
+//                            $queryparams
+//                        );
+
+                        $curl_final_data_pre = $curl->get( 'https://api.twitter.com/1.1/account/verify_credentials.json', $queryparams);
+
+                        ob_start();
+                        var_dump($curl_final_data_pre);
+                        $result = ob_get_clean();
+                        throw new moodle_exception( 'twitter $curl_final_data_pre is '.$result, 'auth_lenauth' );
+
                         $json_decoded = json_decode( $curl_final_data_pre, true );
                         if ( isset( $json_decoded['error'] ) && isset( $json_decoded['request'] ) ) {
                             throw new moodle_exception( 'Native Twitter Error: ' . $json_decoded['error'] . '. For request ' . $json_decoded['request'], 'auth_lenauth' );
