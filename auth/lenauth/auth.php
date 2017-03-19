@@ -935,29 +935,28 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $access_token, $_COOKIE[$authprovider]['oauth_token_secret']);
                         $the_access_token = $twitterConnection->oauth("oauth/access_token", array("oauth_verifier" => $oauth_verifier));
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $the_access_token['oauth_token'], $the_access_token['oauth_token_secret']);
-                        $twitterContent = $twitterConnection->get("account/verify_credentials", array('include_entities' => false, 'skip_status' => true, 'include_email' => true));
-                        ob_start();
-                        var_dump($twitterContent);
-                        $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter $twitterContent is '.$result, 'auth_lenauth' );
+                        $twitterAcctInfo = $twitterConnection->get("account/verify_credentials", array('include_entities' => false, 'skip_status' => true, 'include_email' => true));
+//                        ob_start();
+//                        var_dump($twitterAcctInfo);
+//                        $result = ob_get_clean();
+//                        throw new moodle_exception( 'twitter $twitterAcctInfo is '.$result, 'auth_lenauth' );
 
-                        $curl_final_data_pre = $curl->post(
-                            $this->_settings[$authprovider]['token_url'],
-                            $queryparams
-                        );
-
-                        $json_decoded = json_decode( $curl_final_data_pre, true );
-                        if ( isset( $json_decoded['error'] ) && isset( $json_decoded['request'] ) ) {
-                            throw new moodle_exception( 'Native Twitter Error: ' . $json_decoded['error'] . '. For request ' . $json_decoded['request'], 'auth_lenauth' );
+                        if ( !isset( $twitterAcctInfo->id )) {
+                            throw new moodle_exception( 'Native Twitter Error: verify_credentials failed', 'auth_lenauth' );
                         }
 
-                        parse_str($curl_final_data_pre, $curl_final_data);
-                        $social_uid = $curl_final_data['user_id'];
+                        $social_uid                  = $twitterAcctInfo->id_str;
+                        $user_email                  = $twitterAcctInfo->id_str . '@study-day.com';
+                        $first_name                  = $twitterAcctInfo->name;
+                        $last_name                   = $twitterAcctInfo->screen_name;
                         if ( $this->_oauth_config->auth_lenauth_retrieve_avatar ) {
-                            $image_url_pre = 'https://twitter.com/' . $curl_final_data['screen_name'] . '/profile_image?size=original';
+                            $image_url_pre = 'https://twitter.com/' . $twitterAcctInfo->screen_name . '/profile_image?size=original';
                             $image_header = get_headers( $image_url_pre, 1 );
                             $image_url = $image_header['location'];
                         }
+
+                        throw new moodle_exception( 'twitter $social_uid is '.$social_uid.', $user_email is '.$user_email.', $first_name is '.$first_name.', $last_name'.$last_name, 'auth_lenauth' );
+
                         break;
                     
                     case 'vk':
