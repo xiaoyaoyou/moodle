@@ -1259,10 +1259,13 @@ class auth_plugin_lenauth extends auth_plugin_base {
                 }
 
                 if($authprovider == "twitter") {
-                    throw new moodle_exception( 'unset process $authprovider is '.$authprovider, 'auth_lenauth' );
-                    unset($_COOKIE[ $authprovider . '[access_token]']);
-                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
-                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
+                    unset( $_COOKIE['twitter'] );
+                    setcookie('twitter', null, 1, '/');
+                    unset( $_COOKIE['auth_lenauth_authprovider'] );
+                    setcookie('auth_lenauth_authprovider', null, 1, '/');
+//                    unset($_COOKIE[ $authprovider . '[access_token]']);
+//                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
+//                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
                 }
 
                 redirect( $urltogo );
@@ -1280,6 +1283,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
      * @global string
      */
     public function logoutpage_hook() {
+        throw new moodle_exception( 'logoutpage_hook ', 'auth_lenauth' );
         if ( isset( $_COOKIE['auth_lenauth_authprovider'] ) ) {
             if ( isset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] ) ) {
                 unset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] );
