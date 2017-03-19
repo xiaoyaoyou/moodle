@@ -922,7 +922,8 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $curl_header = $this->_lenauth_set_twitter_header( $queryparams, $access_token, $_COOKIE[$authprovider]['oauth_token_secret'] );
                         $curl->setHeader( $curl_header );
 
-                        throw new moodle_exception( 'twitter $curl is '.$curl, 'auth_lenauth' );
+                        var_dump($curl);
+                        throw new moodle_exception( 'twitter $curl is ', 'auth_lenauth' );
                         $curl_final_data_pre = $curl->post(
                             $this->_settings[$authprovider]['token_url'],
                             $queryparams
