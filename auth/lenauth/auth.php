@@ -1259,6 +1259,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
                 }
 
                 if($authprovider == "twitter") {
+                    throw new moodle_exception( 'unset process $authprovider is '.$authprovider, 'auth_lenauth' );
                     unset($_COOKIE[ $authprovider . '[access_token]']);
                     unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
                     unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
