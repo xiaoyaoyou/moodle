@@ -567,6 +567,10 @@ class auth_plugin_lenauth extends auth_plugin_base {
                     if($this->_settings[$authprovider] == "twitter") {
                         $connection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret);
                         $curl_tokens_values = $connection->oauth('oauth/request_token', array('oauth_callback' => $params['oauth_callback']));
+                        ob_start();
+                        var_dump($curl_tokens_values);
+                        $result = ob_get_clean();
+                        throw new moodle_exception( 'twitter $curl_tokens_values is '.$result, 'auth_lenauth' );
                     }else {
                         $curl_tokens_values = $curl->post(
                             $this->_settings[$authprovider]['request_token_url'],
