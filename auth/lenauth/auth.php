@@ -1286,12 +1286,12 @@ class auth_plugin_lenauth extends auth_plugin_base {
      */
     public function logoutpage_hook() {
         if(isset( $_COOKIE['auth_lenauth_authprovider'] ) && $_COOKIE['auth_lenauth_authprovider'] == "twitter") {
-            unset($_COOKIE['twitter.[access_token]']);
-            unset($_COOKIE['twitter.[oauth_token_secret]']);
-            unset($_COOKIE['twitter.[oauth_verifier]']);
-            setcookie( 'twitter.[access_token]', null, 1, '/');
-            setcookie( 'twitter.[oauth_token_secret]', null, 1, '/');
-            setcookie( 'twitter.[oauth_verifier]', null, 1, '/');
+            unset($_COOKIE['twitter[access_token]']);
+            unset($_COOKIE['twitter[oauth_token_secret]']);
+            unset($_COOKIE['twitter[oauth_verifier]']);
+            setcookie( 'twitter[access_token]', null, 1, '/');
+            setcookie( 'twitter[oauth_token_secret]', null, 1, '/');
+            setcookie( 'twitter[oauth_verifier]', null, 1, '/');
             unset( $_COOKIE['auth_lenauth_authprovider'] );
             setcookie('auth_lenauth_authprovider', null, 1, '/');
         }else {
