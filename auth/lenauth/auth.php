@@ -1260,7 +1260,9 @@ class auth_plugin_lenauth extends auth_plugin_base {
 
                 if($authprovider == "twitter") {
                     unset( $_COOKIE['twitter'] );
-                    setcookie('twitter', null, 1, '/');
+                    setcookie($authprovider . '[access_token]', null, 1, '/');
+                    setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
+                    setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
                     unset( $_COOKIE['auth_lenauth_authprovider'] );
                     setcookie('auth_lenauth_authprovider', null, 1, '/');
 //                    unset($_COOKIE[ $authprovider . '[access_token]']);
