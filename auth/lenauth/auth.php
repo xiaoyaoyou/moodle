@@ -935,7 +935,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $access_token, $_COOKIE[$authprovider]['oauth_token_secret']);
                         $the_access_token = $twitterConnection->oauth("oauth/access_token", array("oauth_verifier" => $oauth_verifier));
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $the_access_token['oauth_token'], $the_access_token['oauth_token_secret']);
-                        $twitterContent = $twitterConnection->get("account/verify_credentials", array('include_email' => true));
+                        $twitterContent = $twitterConnection->get("account/verify_credentials", array('include_entities' => false, 'skip_status' => true, 'include_email' => true));
                         ob_start();
                         var_dump($twitterContent);
                         $result = ob_get_clean();
