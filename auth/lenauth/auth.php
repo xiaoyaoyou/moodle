@@ -922,10 +922,6 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $curl_header = $this->_lenauth_set_twitter_header( $queryparams, $access_token, $_COOKIE[$authprovider]['oauth_token_secret'] );
                         $curl->setHeader( $curl_header );
 
-                        ob_start();
-                        var_dump($curl);
-                        $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter $curl is '.$result, 'auth_lenauth' );
                         $curl_final_data_pre = $curl->post(
                             $this->_settings[$authprovider]['token_url'],
                             $queryparams
@@ -935,6 +931,10 @@ class auth_plugin_lenauth extends auth_plugin_base {
                             throw new moodle_exception( 'Native Twitter Error: ' . $json_decoded['error'] . '. For request ' . $json_decoded['request'], 'auth_lenauth' );
                         }
 
+                        ob_start();
+                        var_dump($curl_final_data_pre);
+                        $result = ob_get_clean();
+                        throw new moodle_exception( 'twitter $curl_final_data_pre is '.$result, 'auth_lenauth' );
                         parse_str($curl_final_data_pre, $curl_final_data);
                         $social_uid = $curl_final_data['user_id'];
                         if ( $this->_oauth_config->auth_lenauth_retrieve_avatar ) {
