@@ -945,9 +945,6 @@ class auth_plugin_lenauth extends auth_plugin_base {
                             throw new moodle_exception( 'Native Twitter Error: verify_credentials failed', 'auth_lenauth' );
                         }
 
-                        setcookie( $authprovider . '[access_token]', $the_access_token['oauth_token'], time() + $this->_settings[$authprovider]['expire'], '/' );
-                        setcookie( $authprovider . '[oauth_token_secret]', $the_access_token['oauth_token_secret'], time() + $this->_settings[$authprovider]['expire'], '/' );
-
                         $social_uid = $curl_final_data['uid'] = $twitterAcctInfo->id_str;
                         $user_email = $curl_final_data['email'] = $twitterAcctInfo->id_str . '@study-day.com';
                         $first_name = $curl_final_data['first_name'] = $twitterAcctInfo->name;
@@ -1260,6 +1257,13 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         unset( $SESSION->wantsurl );
                     }
                 }
+
+                if($authprovider == "twitter") {
+                    unset($_COOKIE[ $authprovider . '[access_token]']);
+                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
+                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
+                }
+
                 redirect( $urltogo );
             } else {
                 throw new moodle_exception( 'auth_lenauth_access_token_empty', 'auth_lenauth' );
