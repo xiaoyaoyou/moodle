@@ -24,6 +24,7 @@ defined( 'MOODLE_INTERNAL' ) || die();
 
 require_once( $CFG->libdir . '/authlib.php' ); //requires authentication core library
 require_once( $CFG->libdir . '/formslib.php' );
+require_once "vendor/autoload.php";
 
 /**
  * LenAuth authentication plugin.
@@ -928,17 +929,17 @@ class auth_plugin_lenauth extends auth_plugin_base {
 //                        $result = ob_get_clean();
 //                        throw new moodle_exception( 'twitter oauth err is '.$result, 'auth_lenauth' );
 
-//                        $curl_final_data_pre = $curl->post(
-//                            $this->_settings[$authprovider]['token_url'],
-//                            $queryparams
-//                        );
-
-                        $curl_final_data_pre = $curl->get( 'https://api.twitter.com/1.1/account/verify_credentials.json', $queryparams);
-
+                        $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $access_token, $_COOKIE[$authprovider]['oauth_token_secret']);
+                        $twitterContent = $twitterConnection->get("account/verify_credentials");
                         ob_start();
-                        var_dump($curl_final_data_pre);
+                        var_dump($twitterContent);
                         $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter $curl_final_data_pre is '.$result, 'auth_lenauth' );
+                        throw new moodle_exception( 'twitter $twitterContent is '.$result, 'auth_lenauth' );
+
+                        $curl_final_data_pre = $curl->post(
+                            $this->_settings[$authprovider]['token_url'],
+                            $queryparams
+                        );
 
                         $json_decoded = json_decode( $curl_final_data_pre, true );
                         if ( isset( $json_decoded['error'] ) && isset( $json_decoded['request'] ) ) {
