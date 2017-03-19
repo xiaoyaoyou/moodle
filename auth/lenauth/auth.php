@@ -1259,15 +1259,14 @@ class auth_plugin_lenauth extends auth_plugin_base {
                 }
 
                 if($authprovider == "twitter") {
-                    unset( $_COOKIE['twitter'] );
+                    unset($_COOKIE[ $authprovider . '[access_token]']);
+                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
+                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
                     setcookie($authprovider . '[access_token]', null, 1, '/');
                     setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
                     setcookie($authprovider . '[oauth_verifier]', null, 1, '/');
                     unset( $_COOKIE['auth_lenauth_authprovider'] );
                     setcookie('auth_lenauth_authprovider', null, 1, '/');
-//                    unset($_COOKIE[ $authprovider . '[access_token]']);
-//                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
-//                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
                 }
 
                 redirect( $urltogo );
@@ -1285,15 +1284,26 @@ class auth_plugin_lenauth extends auth_plugin_base {
      * @global string
      */
     public function logoutpage_hook() {
-        if ( isset( $_COOKIE['auth_lenauth_authprovider'] ) ) {
-            if ( isset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] ) ) {
-                unset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] );
-                setcookie( $_COOKIE['auth_lenauth_authprovider'], null, -1, '/' );
-            }
+        if(isset( $_COOKIE['auth_lenauth_authprovider'] ) && $_COOKIE['auth_lenauth_authprovider'] == "twitter") {
+            unset($_COOKIE['twitter.[access_token]']);
+            unset($_COOKIE['twitter.[oauth_token_secret]']);
+            unset($_COOKIE['twitter.[oauth_verifier]']);
+            setcookie( 'twitter.[access_token]', null, 1, '/');
+            setcookie( 'twitter.[oauth_token_secret]', null, 1, '/');
+            setcookie( 'twitter.[oauth_verifier]', null, 1, '/');
             unset( $_COOKIE['auth_lenauth_authprovider'] );
-            setcookie( 'auth_lenauth_authprovider', null, -1, '/' );
+            setcookie('auth_lenauth_authprovider', null, 1, '/');
+        }else {
+            if ( isset( $_COOKIE['auth_lenauth_authprovider'] ) ) {
+                if ( isset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] ) ) {
+                    unset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] );
+                    setcookie( $_COOKIE['auth_lenauth_authprovider'], null, -1, '/' );
+                }
+                unset( $_COOKIE['auth_lenauth_authprovider'] );
+                setcookie( 'auth_lenauth_authprovider', null, -1, '/' );
+            }
         }
-        
+
         return true;
     }
 
