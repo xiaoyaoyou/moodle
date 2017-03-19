@@ -563,6 +563,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
 
             // cURL REQUEST for tokens if we hasnt it in $_COOKIE
             if ( $this->_send_oauth_request ) {
+                throw new moodle_exception( 'twitter before get token $this->_curl_type is '.$this->_curl_type.', $authprovider is '.$this->_settings[$authprovider], 'auth_lenauth' );
                 if ($this->_curl_type == 'post') {
                     if($this->_settings[$authprovider] == "twitter") {
                         $connection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret);
