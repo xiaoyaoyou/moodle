@@ -945,10 +945,10 @@ class auth_plugin_lenauth extends auth_plugin_base {
                             throw new moodle_exception( 'Native Twitter Error: verify_credentials failed', 'auth_lenauth' );
                         }
 
-                        $social_uid                  = $twitterAcctInfo->id_str;
-                        $user_email                  = $twitterAcctInfo->id_str . '@study-day.com';
-                        $first_name                  = $twitterAcctInfo->name;
-                        $last_name                   = $twitterAcctInfo->screen_name;
+                        $social_uid = $curl_final_data['uid'] = $twitterAcctInfo->id_str;
+                        $user_email = $curl_final_data['email'] = $twitterAcctInfo->id_str . '@study-day.com';
+                        $first_name = $curl_final_data['first_name'] = $twitterAcctInfo->name;
+                        $last_name  = $curl_final_data['last_name'] = $twitterAcctInfo->screen_name;
                         if ( $this->_oauth_config->auth_lenauth_retrieve_avatar ) {
                             $image_url_pre = 'https://twitter.com/' . $twitterAcctInfo->screen_name . '/profile_image?size=original';
                             $image_header = get_headers( $image_url_pre, 1 );
