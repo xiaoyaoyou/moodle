@@ -923,18 +923,13 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         $curl_header = $this->_lenauth_set_twitter_header( $queryparams, $access_token, $_COOKIE[$authprovider]['oauth_token_secret'] );
                         $curl->setHeader( $curl_header );
 
-//                        ob_start();
-//                        var_dump($curl);
-//                        var_dump($this->_settings[$authprovider]);
-//                        $result = ob_get_clean();
-//                        throw new moodle_exception( 'twitter oauth err is '.$result, 'auth_lenauth' );
-
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $access_token, $_COOKIE[$authprovider]['oauth_token_secret']);
-                        $twitterContent = $twitterConnection->get("account/verify_credentials");
                         ob_start();
-                        var_dump($twitterContent);
+                        var_dump($twitterConnection);
                         $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter $twitterContent is '.$result, 'auth_lenauth' );
+                        throw new moodle_exception( 'twitter $twitterConnection is '.$result, 'auth_lenauth' );
+
+                        $twitterContent = $twitterConnection->get("account/verify_credentials");
 
                         $curl_final_data_pre = $curl->post(
                             $this->_settings[$authprovider]['token_url'],
