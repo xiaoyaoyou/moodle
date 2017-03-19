@@ -1258,16 +1258,17 @@ class auth_plugin_lenauth extends auth_plugin_base {
                     }
                 }
 
-                if($authprovider == "twitter") {
-                    unset($_COOKIE[ $authprovider . '[access_token]']);
-                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
-                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
-                    setcookie($authprovider . '[access_token]', null, 1, '/');
-                    setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
-                    setcookie($authprovider . '[oauth_verifier]', null, 1, '/');
-                    unset( $_COOKIE['auth_lenauth_authprovider'] );
-                    setcookie('auth_lenauth_authprovider', null, 1, '/');
-                }
+                //在logoutpage_hook中清除twitter相关的cookie
+//                if($authprovider == "twitter") {
+//                    unset($_COOKIE[ $authprovider . '[access_token]']);
+//                    unset($_COOKIE[ $authprovider . '[oauth_token_secret]']);
+//                    unset($_COOKIE[ $authprovider . '[oauth_verifier]']);
+//                    setcookie($authprovider . '[access_token]', null, 1, '/');
+//                    setcookie($authprovider . '[oauth_token_secret]', null, 1, '/');
+//                    setcookie($authprovider . '[oauth_verifier]', null, 1, '/');
+//                    unset( $_COOKIE['auth_lenauth_authprovider'] );
+//                    setcookie('auth_lenauth_authprovider', null, 1, '/');
+//                }
 
                 redirect( $urltogo );
             } else {
