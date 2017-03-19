@@ -1285,7 +1285,6 @@ class auth_plugin_lenauth extends auth_plugin_base {
      * @global string
      */
     public function logoutpage_hook() {
-        throw new moodle_exception( 'logoutpage_hook ', 'auth_lenauth' );
         if ( isset( $_COOKIE['auth_lenauth_authprovider'] ) ) {
             if ( isset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] ) ) {
                 unset( $_COOKIE[$_COOKIE['auth_lenauth_authprovider']] );
