@@ -567,10 +567,10 @@ class auth_plugin_lenauth extends auth_plugin_base {
                     if($authprovider == "twitter") {
                         $connection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret);
                         $curl_tokens_values = $connection->oauth('oauth/request_token', array('oauth_callback' => $params['oauth_callback']));
-                        ob_start();
-                        var_dump($curl_tokens_values);
-                        $result = ob_get_clean();
-                        throw new moodle_exception( 'twitter $curl_tokens_values is '.$result, 'auth_lenauth' );
+//                        ob_start();
+//                        var_dump($curl_tokens_values);
+//                        $result = ob_get_clean();
+//                        throw new moodle_exception( 'twitter $curl_tokens_values is '.$result, 'auth_lenauth' );
                     }else {
                         $curl_tokens_values = $curl->post(
                             $this->_settings[$authprovider]['request_token_url'],
@@ -669,9 +669,9 @@ class auth_plugin_lenauth extends auth_plugin_base {
                         break;
                     case 'twitter':
                         if ( $this->_send_oauth_request || !isset( $_COOKIE[$authprovider]['oauth_token_secret'] ) ) {
-                            parse_str( $curl_tokens_values, $token_values );
-                            $access_token = $SESSION->twitter_access_token = $token_values['oauth_token'];
-                            setcookie( $authprovider . '[oauth_token_secret]', $token_values['oauth_token_secret'], time() + $this->_settings[$authprovider]['expire'], '/' );
+//                            parse_str( $curl_tokens_values, $token_values );
+                            $access_token = $SESSION->twitter_access_token = $curl_tokens_values['oauth_token'];
+                            setcookie( $authprovider . '[oauth_token_secret]', $curl_tokens_values['oauth_token_secret'], time() + $this->_settings[$authprovider]['expire'], '/' );
                         } else {
                             if ( isset( $_COOKIE[$authprovider]['access_token'], $_COOKIE[$authprovider]['oauth_token_secret'] ) || isset( $SESSION->twitter_access_token, $SESSION->twitter_oauth_verifier ) ) {
                                 $access_token = isset( $_COOKIE[$authprovider]['access_token'] ) ? $_COOKIE[$authprovider]['access_token'] : $SESSION->twitter_access_token;
