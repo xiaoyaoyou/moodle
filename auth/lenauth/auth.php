@@ -955,7 +955,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
                             $image_url = $image_header['location'];
                         }
 
-                        throw new moodle_exception( 'twitter $social_uid is '.$social_uid.', $user_email is '.$user_email.', $first_name is '.$first_name.', $last_name'.$last_name, 'auth_lenauth' );
+//                        throw new moodle_exception( 'twitter $social_uid is '.$social_uid.', $user_email is '.$user_email.', $first_name is '.$first_name.', $last_name is'.$last_name, 'auth_lenauth' );
 
                         break;
                     
