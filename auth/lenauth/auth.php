@@ -924,7 +924,7 @@ class auth_plugin_lenauth extends auth_plugin_base {
 
                         ob_start();
                         var_dump($curl);
-                        var_dump($this->_settings[$authprovider]);
+//                        var_dump($this->_settings[$authprovider]);
                         $result = ob_get_clean();
                         throw new moodle_exception( 'twitter oauth err is '.$result, 'auth_lenauth' );
 
