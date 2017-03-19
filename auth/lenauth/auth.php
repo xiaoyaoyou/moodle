@@ -934,12 +934,12 @@ class auth_plugin_lenauth extends auth_plugin_base {
 
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $access_token, $_COOKIE[$authprovider]['oauth_token_secret']);
                         $the_access_token = $twitterConnection->oauth("oauth/access_token", array("oauth_verifier" => $oauth_verifier));
+                        ob_start();
+                        var_dump($the_access_token);
+                        $result = ob_get_clean();
+                        throw new moodle_exception( 'twitter $the_access_token is '.$result, 'auth_lenauth' );
                         $twitterConnection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret, $the_access_token['oauth_token'], $the_access_token['oauth_token_secret']);
                         $twitterAcctInfo = $twitterConnection->get("account/verify_credentials", array('include_entities' => false, 'skip_status' => true, 'include_email' => true));
-//                        ob_start();
-//                        var_dump($twitterAcctInfo);
-//                        $result = ob_get_clean();
-//                        throw new moodle_exception( 'twitter $twitterAcctInfo is '.$result, 'auth_lenauth' );
 
                         if ( !isset( $twitterAcctInfo->id )) {
                             throw new moodle_exception( 'Native Twitter Error: verify_credentials failed', 'auth_lenauth' );
