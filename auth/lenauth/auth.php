@@ -564,11 +564,16 @@ class auth_plugin_lenauth extends auth_plugin_base {
             // cURL REQUEST for tokens if we hasnt it in $_COOKIE
             if ( $this->_send_oauth_request ) {
                 if ($this->_curl_type == 'post') {
-                    $curl_tokens_values = $curl->post(
-                        $this->_settings[$authprovider]['request_token_url'],
-                        //hack for twitter
-                        $encode_params ? $this->_generate_query_data( $params ) : $params
-                    );
+                    if($this->_settings[$authprovider] == "twitter") {
+                        $connection = new Abraham\TwitterOAuth\TwitterOAuth($this->_oauth_config->auth_lenauth_twitter_consumer_key, $this->_oauth_config->auth_lenauth_twitter_consumer_secret);
+                        $curl_tokens_values = $connection->oauth('oauth/request_token', array('oauth_callback' => $params['oauth_callback']));
+                    }else {
+                        $curl_tokens_values = $curl->post(
+                            $this->_settings[$authprovider]['request_token_url'],
+                            //hack for twitter
+                            $encode_params ? $this->_generate_query_data( $params ) : $params
+                        );
+                    }
                 } else {
                     $curl_tokens_values = $curl->get(
                         $this->_settings[$authprovider]['request_token_url'] . '?' . ( $encode_params ? $this->_generate_query_data( $params ) : $params )
