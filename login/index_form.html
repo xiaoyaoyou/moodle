@@ -34,11 +34,10 @@ if (empty($CFG->authloginviaemail)) {
           }
         ?>
         <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
-          <div class="lenauth-buttons lenauth-style-5 lenauth-simple-3d" style="display:block;">
+          <div class="lenauth-buttons lenauth-style-1-4 lenauth-icon-text style2" style="display:block;">
               <ul>
-                  <li style="display:inline-block;margin:10px 10px 10px 10px;"><a class="lenauth-style5-facebook" href="https://www.facebook.com/dialog/oauth?client_id=1852291394992682&amp;redirect_uri=http%3A%2F%2Fxiaoyaoyou.s1.natapp.cc%2Fmoodle-dev%2Fauth%2Flenauth%2Fredirect.php%3Fauth_service%3Dfacebook&amp;scope=email"><span></span>Facebook</a></li>
-                  <li style="display:inline-block;margin:10px 10px 10px 10px;"><a class="lenauth-style5-twitter" href="http://xiaoyaoyou.s1.natapp.cc/moodle-dev/auth/lenauth/redirect.php?auth_service=twitter"><span></span>Twitter</a></li>
-              </ul>
+                  <li style="display:inline-block;margin:10px 10px 10px 10px;"><a class="lenauth-ico-facebook" href="https://www.facebook.com/dialog/oauth?client_id=1852291394992682&redirect_uri=http%3A%2F%2Fwww.study-day.com%2Fsat%2Fauth%2Flenauth%2Fredirect.php%3Fauth_service%3Dfacebook&scope=email">Facebook</a></li>
+                  <li style="display:inline-block;margin:10px 10px 10px 10px;"><a class="lenauth-ico-twitter" href="http://www.study-day.com/sat/auth/lenauth/redirect.php?auth_service=twitter">Twitter</a></li></ul>
           </div>
           <div class="loginform">
             <div class="form-label"><label for="username"><?php echo($strusername) ?></label></div>
