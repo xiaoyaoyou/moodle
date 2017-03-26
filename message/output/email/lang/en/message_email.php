@@ -49,5 +49,5 @@ $string['smtpmaxbulk'] = 'SMTP session limit';
 $string['smtppass'] = 'SMTP password';
 $string['smtpsecure'] = 'SMTP security';
 $string['smtpuser'] = 'SMTP username';
-$string['sdemailsendmock'] = '模拟发送email';
-$string['configsdemailsendmock'] = '勾选则跳过email发送逻辑, 直接返回发送成功';
+$string['sdemailsendmock'] = 'email send mock';
+$string['configsdemailsendmock'] = 'if checked, the email send action will be ignored, and just return send success';
