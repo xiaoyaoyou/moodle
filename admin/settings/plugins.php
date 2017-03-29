@@ -468,6 +468,10 @@ foreach (core_component::get_plugin_list('report') as $report => $plugindir) {
 $ADMIN->add('modules', new admin_category('reportplugins', new lang_string('reports')));
 $ADMIN->add('reportplugins', new admin_externalpage('managereports', new lang_string('reportsmanage', 'admin'),
                                                     $CFG->wwwroot . '/' . $CFG->admin . '/reports.php'));
+
+$ADMIN->add('reportplugins', new admin_externalpage('paypalorderreports', new lang_string('paypalorder', 'admin'),
+    $CFG->wwwroot . '/' . $CFG->admin . '/paypalorders.php'));
+
 foreach ($pages as $page) {
     $ADMIN->add('reportplugins', $page);
 }
