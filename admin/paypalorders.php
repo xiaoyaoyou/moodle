@@ -34,7 +34,7 @@ require_once($CFG->libdir.'/tablelib.php');
 admin_externalpage_setup('paypalorderreports');
 
 $page         = optional_param('page', 0, PARAM_INT);
-$perpage      = optional_param('perpage', 2, PARAM_INT);        // how many per page
+$perpage      = optional_param('perpage', 10, PARAM_INT);        // how many per page
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('paypalorders', 'admin'));
