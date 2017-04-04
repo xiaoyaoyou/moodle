@@ -47,13 +47,25 @@ $table->set_attribute('id', 'reportplugins');
 $table->set_attribute('class', 'admintable generaltable');
 $table->setup();
 
-$select = 'payment_status = ?';
-$params = array('Completed');
-$orderby = 'id DESC';
-$paypalorders = $DB->get_records_select('availability_paypal_tnx', $select, $params, $orderby, '*', $page*$perpage, $perpage);
+//$select = 'payment_status = ?';
+//$params = array('Completed');
+//$orderby = 'id DESC';
+//$paypalorders = $DB->get_records_select('availability_paypal_tnx', $select, $params, $orderby, '*', $page*$perpage, $perpage);
+
+$wheres = array("apt.payment_status = :paystatus");
+$wheres = implode(" AND ", $wheres);
+$orderby = "ORDER BY apt.id desc";
+$sql = "SELECT apt.id, apt.userid, apt.receiver_email, apt.item_name, apt.timeupdated, u.username
+              FROM {availability_paypal_tnx} apt
+              INNER JOIN {user} u ON (apt.userid = u.id)
+             WHERE $wheres
+          $orderby";
+$params = array('paystatus'=>'Completed');
+
+$paypalorders = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 foreach ($paypalorders as $theorder) {
-    $table->add_data(array($theorder->userid, $theorder->receiver_email, $theorder->item_name, $theorder->timeupdated));
+    $table->add_data(array("<a href=\"../user/view.php?id=$theorder->userid\">$theorder->username</a>", $theorder->receiver_email, $theorder->item_name, $theorder->timeupdated));
 }
 
 $ordercount = $DB->count_records('availability_paypal_tnx', array('payment_status' => 'Completed'));
