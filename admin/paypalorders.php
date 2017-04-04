@@ -33,6 +33,9 @@ require_once($CFG->libdir.'/tablelib.php');
 
 admin_externalpage_setup('paypalorderreports');
 
+$page         = optional_param('page', 0, PARAM_INT);
+$perpage      = optional_param('perpage', 2, PARAM_INT);        // how many per page
+
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('paypalorders', 'admin'));
 
@@ -47,14 +50,16 @@ $table->setup();
 $select = 'payment_status = ?';
 $params = array('Completed');
 $orderby = 'id DESC';
-$paypalorders = $DB->get_records_select('availability_paypal_tnx', $select, $params, $orderby);
+$paypalorders = $DB->get_records_select('availability_paypal_tnx', $select, $params, $orderby, '*', $page*$perpage, $perpage);
 
 foreach ($paypalorders as $theorder) {
     $table->add_data(array($theorder->userid, $theorder->receiver_email, $theorder->item_name, $theorder->timeupdated));
 }
 
+$ordercount = $DB->count_records('availability_paypal_tnx', array('payment_status' => 'Completed'));
+
 $table->print_html();
-$baseurl = new moodle_url('/admin/user.php', array('perpage' => 10));
-echo $OUTPUT->paging_bar(30, 0, 10, $baseurl);
+$baseurl = new moodle_url('/admin/paypalorders.php', array('perpage' => $perpage, 'page'=>$page));
+echo $OUTPUT->paging_bar($ordercount, $page, $perpage, $baseurl);
 
 echo $OUTPUT->footer();
