@@ -79,6 +79,10 @@ class block_navigation_renderer extends plugin_renderer_base {
                 continue;
             }
 
+            if ($item->text == 'Site pages') {
+                continue;
+            }
+
             $isexpandable = (empty($expansionlimit) || ($item->type > navigation_node::TYPE_ACTIVITY || $item->type < $expansionlimit) || ($item->contains_active_node() && $item->children->count() > 0));
 
             // Skip elements which have no content and no action - no point in showing them
