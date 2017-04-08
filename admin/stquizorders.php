@@ -32,7 +32,7 @@ $params = array('paystatus'=>'Completed');
 $paypalorders = $DB->get_records_sql($sql, $params, $page*$perpage, $perpage);
 
 foreach ($paypalorders as $theorder) {
-    $table->add_data(array("<a href=\"../user/view.php?id=$theorder->userid\">$theorder->username</a>", $theorder->receiver_email, "<a href=\"$CFG->wwwroot/course/view.php?id=$theorder->courseid\">$theorder->item_name</a>", $theorder->timeupdated));
+    $table->add_data(array("<a href=\"../user/view.php?id=$theorder->userid\">$theorder->username</a>", $theorder->receiver_email, "<a href=\"$CFG->wwwroot/course/view.php?id=$theorder->courseid\">$theorder->item_name</a>", date('Y-m-d H:i:s',$theorder->timeupdated)));
 }
 
 $ordercount = $DB->count_records('enrol_paypal', array('payment_status' => 'Completed'));
