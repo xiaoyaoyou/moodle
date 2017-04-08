@@ -1182,5 +1182,6 @@ $string['paypalreceiveemail'] = 'paypal receive email';
 $string['paydesc'] = 'pay desc';
 $string['paytime'] = 'pay time';
 $string['paypalorders'] = 'paypal orders';
-
+$string['quizorders'] = 'quiz orders';
+$string['quizname'] = 'quiz name';
 
