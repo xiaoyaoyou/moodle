@@ -38,6 +38,10 @@ class block_calendar_upcoming extends block_base {
     public function get_content() {
         global $CFG;
 
+        if(!is_siteadmin()) {
+            return null;
+        }
+
         require_once($CFG->dirroot.'/calendar/lib.php');
 
         if ($this->content !== null) {
