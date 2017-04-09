@@ -13,6 +13,13 @@
             <?php if($CFG->branch > "27"): ?>
 										       <?php echo $OUTPUT->user_menu(); ?>
              <?php endif; ?>
+
+            <div class="usermenu" style="float: left">
+              <span class="login">
+                  <a href="<?php echo  $CFG->wwwroot.'/blog/index.php' ?>">advise for study-day</a>
+              </span>
+            </div>
+
           <div class="nav-collapse collapse navbar-responsive-collapse">
 													<?php echo $OUTPUT->custom_menu(); ?>
             <ul class="nav pull-right">
