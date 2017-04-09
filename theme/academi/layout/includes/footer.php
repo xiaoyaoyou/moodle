@@ -32,6 +32,9 @@ $infolink = theme_academi_get_setting('infolink');
 
 			 	foreach($info_settings as $key => $settingval)
 				{
+                    if(trim($settingval) == '') {
+                        continue;
+                    }
 					$exp_set = explode("|",$settingval);
 					list($ltxt,$lurl) = $exp_set;
 					$ltxt = trim($ltxt);
