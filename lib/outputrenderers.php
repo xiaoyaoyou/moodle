@@ -3402,7 +3402,9 @@ EOD;
             $navitemcount = count($opts->navitems);
             $idx = 0;
             foreach ($opts->navitems as $key => $value) {
-
+                if($value->title == 'Grades' || $value->title == 'Messages' || $value->title == 'Preferences') {
+                    continue;
+                }
                 switch ($value->itemtype) {
                     case 'divider':
                         // If the nav item is a divider, add one and skip link processing.
