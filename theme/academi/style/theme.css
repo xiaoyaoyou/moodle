@@ -1385,7 +1385,7 @@ div.backup-section + form,
 		left: 0;
 }
 .coursebox .content {
-		min-height: 120px;
+		min-height: 40px;
 		color: #656565;
 		padding: 20px 0 0;
 		overflow: hidden;		
