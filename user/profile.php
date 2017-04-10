@@ -133,7 +133,7 @@ if ($node = $PAGE->settingsnav->get('root')) {
 
 
 // Toggle the editing state and switches.
-if ($PAGE->user_allowed_editing()) {
+if ($PAGE->user_allowed_editing() && false) {
     if ($reset !== null) {
         if (!is_null($userid)) {
             if (!$currentpage = my_reset_page($userid, MY_PAGE_PUBLIC, 'user-profile')) {
