@@ -44,6 +44,9 @@ class renderer extends \plugin_renderer_base {
         $return = \html_writer::start_tag('div', array('class' => 'profile_tree'));
         $categories = $tree->categories;
         foreach ($categories as $category) {
+            if($category->name == 'miscellaneous') {
+                continue;
+            }
             $return .= $this->render($category);
         }
         $return .= \html_writer::end_tag('div');
