@@ -410,6 +410,9 @@ class navigation_node implements renderable {
      * @return bool Returns true if it has children or could have (by AJAX expansion)
      */
     public function has_children() {
+        if($this->type === navigation_node::TYPE_COURSE && $this->nodetype === navigation_node::NODETYPE_BRANCH && $this->parent != null && $this->parent->key === 'mycourses') {
+            return false;
+        }
         return ($this->nodetype === navigation_node::NODETYPE_BRANCH || $this->children->count()>0 || $this->isexpandable);
     }
 
