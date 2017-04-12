@@ -973,6 +973,10 @@ class block_manager {
         }
 
         foreach ($instances as $instance) {
+            if(!is_siteadmin() && $instance->blockname == 'block_settings' && $instance->title == 'Administration') {
+                continue;
+            }
+
             $content = $instance->get_content_for_output($output);
             if (empty($content)) {
                 continue;
