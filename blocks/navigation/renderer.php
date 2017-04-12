@@ -79,7 +79,7 @@ class block_navigation_renderer extends plugin_renderer_base {
                 continue;
             }
 
-            if ($item->text == 'Site pages') {
+            if ($item->text == 'Site pages' || $item->key == 'currentcourse') {
                 continue;
             }
 
