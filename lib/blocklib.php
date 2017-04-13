@@ -973,7 +973,9 @@ class block_manager {
         }
 
         foreach ($instances as $instance) {
-            if(!is_siteadmin() && $instance->blockname == 'block_settings' && $instance->title == 'Administration') {
+            if(!is_siteadmin()
+                && ($instance->title != null && $instance->title == 'Administration')
+                && ($instance->blockname != null && $instance->blockname == 'block_settings')) {
                 continue;
             }
 
