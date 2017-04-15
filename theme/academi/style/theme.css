@@ -1477,7 +1477,7 @@ div.backup-section + form,
 @media (min-width: 768px) {
 		.coursebox .content .summary,
 		.coursebox .content .coursecat {
-				padding: 0 0 0 130px;
+				padding: 0 0 0 10px;
 		}
 		.dir-rtl .coursebox .content .summary,
 		.dir-rtl .coursebox .content .coursecat {
