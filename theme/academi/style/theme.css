@@ -2048,3 +2048,7 @@ input[size] {
 		margin-right: 23px;
 	}
 }
+
+#home-page-carousel .carousel-control {
+    display: none;
+}
