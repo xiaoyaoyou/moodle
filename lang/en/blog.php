@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['addnewentry'] = 'Add a new entry';
+$string['addnewentry'] = 'Add a new advise';
 $string['addnewexternalblog'] = 'Register an external blog';
 $string['assocdescription'] = 'If you are writing about a course and/or activity modules, select them here.';
 $string['associated'] = 'Associated {$a}';
